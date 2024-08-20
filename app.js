@@ -20,14 +20,16 @@ app.post('/user/generateToken', (req, res) => {
 });
 
 //validate the JWT
-app.get('user/validateToken', (res, req) => {
+app.get('/user/validateToken', (res, req) => {
 
     //passed in the header of the request
 
     const secret_key = 'extremelysecret';
 
     try{
-        const userToken = req.headersSent.authorization;
+        const userToken = req.headersSent.authorization.split(' ')[1];
+
+        console.log(req.headersSent.authorization);
 
         const verified = jwt.verify(userToken, secret_key);
 
